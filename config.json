@@ -1,0 +1,12 @@
+{
+    "token" : "NzA1NzczNzkwOTM1OTA4NDU0.Gcw1uZ.vCgkA3cyGFuUIGhwlzbczSMP0p17lCqJdEYiVA",
+    "prefix" : ".",
+    "language" : "./langs/ru.json",
+    "deletetimer" : 20,
+    "modules" : {
+       "nitrosnipper" : true,
+       "afk" : false,
+       "afkmessage" : "Sorry, I cant answer at the moment.",
+       "afkimage" : "https://url-to-image"
+    }
+}
