@@ -25,6 +25,8 @@ async def on_ready():
     print("-" * 45)
     
     for file in os.listdir(f"{os.path.realpath(os.path.dirname(__file__))}/cogs"):
+        if file.startswith("_"):
+            pass
         if file.endswith(".py"):
             extension = file[:-3]
             try:
