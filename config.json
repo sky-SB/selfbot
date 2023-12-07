@@ -1,0 +1,6 @@
+{
+    "token": "your.token",
+    "prefix": ".",
+    "language": "langs/en.json",
+    "deletetimer": 20
+}
