@@ -1,0 +1,75 @@
+{
+    "help": {
+        "help": {
+            "description": "📂 All commands.",
+            "title": "## ☄️ | SkySB Commands\n",
+            "prefix": "### Prefix: **{}**\n",
+            "cmdformat": "> **{0}** - `{1}`\n"
+        }
+    },
+    "fun": {
+        "dick": {
+            "description": "🥵 Shows the size of a penis.",
+            "text": "{0}'s penis size is **{1}** cm."
+        },
+        "iq": {
+            "description": "🧠 Shows a person's IQ.",
+            "text": "{0}'s IQ is **{1}**"
+        },
+        "gay": {
+            "description": "🏳️‍🌈 Shows the percentage of a user being gay.",
+            "text": "{0} is **{1}%** gay"
+        },
+        "typing": {
+            "description": "🌀 Typing.",
+            "text": "✅ Typing..."
+        },
+        "8ball": {
+            "description": "🧐 Answers with yes or no.",
+            "text": "The magic ball answered **{1}**"
+        },
+        "spam": {
+            "description": "💣 Spams messages.",
+            "text": "✅ Spamming..."
+        },
+        "choose": {
+            "description": "❓ Makes a choice for you.",
+            "text": "I choose **{}**"
+        },
+        "coinflip": {
+            "description": "🪙 Heads or tails.",
+            "text": "🪙 The coin landed on **{}**"
+        },
+        "randomnumber": {
+            "description": "❓ Picks a number between a range.",
+            "text": "I think **{}** would be a good number."
+        }
+    },
+    "troll": {
+        "ghostping": {
+            "description": "🧐 Ghost pings a user."
+        }
+    },
+    "eval": {
+        "e": {
+            "description": "🐍 Runs python3 code.",
+            "code": "**🐍 Code:**\n",
+            "result": "**🔥 Result:**\n"
+        }
+    },
+    "loader": {
+        "loadExt": {
+            "description": "📥 Install cog from URL.",
+            "wait": "🕒 Loading `{}`...",
+            "libwait": "🕒 Loading packages...",
+            "done": "✅ Cog `{}` installed!"
+        },
+        "reloadExt": {
+            "description": "🔄 Reloads all cogs.",
+            "title": "👇 Reloaded.\n",
+            "format": "✅ **{}**\n"
+        }
+    },
+    "error": "❌ An error occurred!\n```py\n{}\n```",
+    "argRequired": "❓ Argument `{}` is required to execute the command."
+}
