@@ -14,7 +14,7 @@ git clone https://github.com/sky-sb/selfbot.git
 cd selfbot
 pip install -r requirements.txt
 </pre>
-> please, edit configuration file(config.json)
+! please, edit configuration file(config.json)
 
 <h1>Starting</h1>
 <pre lang="bash">
