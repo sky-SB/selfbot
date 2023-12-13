@@ -7,7 +7,6 @@
 #                    AGPL-3.0 license
 
 import random
-import string
 
 import discord
 from discord.ext import commands as skySB

@@ -10,13 +10,9 @@ import json
 import logging
 import asyncio
 import os
-import io
-
-import discord
 from discord.ext import commands
 
 from colored import Fore, Style
-from types import FunctionType
 
 # Logging
 logging.basicConfig(format=f"%(asctime)s | [{Fore.CYAN}%(levelname)s{Style.RESET}] %(message)s", level=logging.WARNING, datefmt='%H:%M')

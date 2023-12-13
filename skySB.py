@@ -7,8 +7,6 @@
 #                    AGPL-3.0 license
 
 import os
-
-import discord
 from utils import config, motd, bot, logger
 from colored import Fore, Style
 
