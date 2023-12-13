@@ -50,8 +50,8 @@ class Loader(skySB.Cog):
                         "install",
                         "--user",
                         *requirements
-                    ]
-                )
+                    ], 
+                check=True)
             except subprocess.CalledProcessError as error:
                 return await utils.answer(ctx, utils.Langs.getcurrent()['error'].format(error))
 
