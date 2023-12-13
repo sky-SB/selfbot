@@ -1,15 +1,16 @@
-#  ______     __  __     __  __     ______     ______    
-# /\  ___\   /\ \/ /    /\ \_\ \   /\  ___\   /\  == \   
-# \ \___  \  \ \  _--.  \ \____ \  \ \___  \  \ \  __<   
+#  ______     __  __     __  __     ______     ______
+# /\  ___\   /\ \/ /    /\ \_\ \   /\  ___\   /\  == \
+# \ \___  \  \ \  _--.  \ \____ \  \ \___  \  \ \  __<
 #  \/\_____\  \ \_\ \_\  \/\_____\  \/\_____\  \ \_____\
 #   \/_____/   \/_/\/_/   \/_____/   \/_____/   \/_____/
-#   
+#
 #                    AGPL-3.0 license
 
 import ast
 import utils
 
 from discord.ext import commands as skySB
+
 
 def insert_returns(body):
     if isinstance(body[-1], ast.Expr):
@@ -20,6 +21,7 @@ def insert_returns(body):
             insert_returns(body[-1].orelse)
         if isinstance(body[-1], ast.With):
             insert_returns(body[-1].body)
+
 
 async def execute_python_code(code, env={}):
     try:
@@ -35,11 +37,12 @@ async def execute_python_code(code, env={}):
     except Exception as error:
         return error
 
+
 class Eval(skySB.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.langpack = utils.Langs.getcurrent()['eval']
-    
+
     @skySB.command(
         aliases=["eval", "py3", "python", "py"],
         description=utils.Langs.getcurrent()['eval']['e']['description'],
@@ -49,7 +52,7 @@ class Eval(skySB.Cog):
         if code:
             if code.startswith("```") and code.endswith("```"):
                 code = "\n".join(code.split("\n")[1:])[:-3]
-            
+
             result = await execute_python_code(
                 code,
                 {
@@ -66,10 +69,10 @@ class Eval(skySB.Cog):
                 }
             )
             if getattr(result, 'stringify', ''):
-               try:
-                   result = str(result.stringify())
-               except:
-                   pass
+                try:
+                    result = str(result.stringify())
+                except:
+                    pass
 
             await utils.answer(
                 ctx,
@@ -77,9 +80,10 @@ class Eval(skySB.Cog):
                 f"```py\n{code}\n```\n"
                 f"{self.langpack['e']['result']}"
                 f"```py\n{result}\n```"
-        )
+            )
         else:
             await utils.answer(ctx, utils.Langs.getcurrent()['argRequired'].format('code'))
+
 
 async def setup(bot) -> None:
     await bot.add_cog(Eval(bot))
