@@ -1,9 +1,9 @@
-#  ______     __  __     __  __     ______     ______    
-# /\  ___\   /\ \/ /    /\ \_\ \   /\  ___\   /\  == \   
-# \ \___  \  \ \  _--.  \ \____ \  \ \___  \  \ \  __<   
+#  ______     __  __     __  __     ______     ______
+# /\  ___\   /\ \/ /    /\ \_\ \   /\  ___\   /\  == \
+# \ \___  \  \ \  _--.  \ \____ \  \ \___  \  \ \  __<
 #  \/\_____\  \ \_\ \_\  \/\_____\  \/\_____\  \ \_____\
 #   \/_____/   \/_/\/_/   \/_____/   \/_____/   \/_____/
-#   
+#
 #                    AGPL-3.0 license
 
 import json
@@ -19,7 +19,8 @@ from colored import Fore, Style
 from types import FunctionType
 
 # Logging
-logging.basicConfig(format=f"%(asctime)s | [{Fore.CYAN}%(levelname)s{Style.RESET}] %(message)s", level=logging.WARNING, datefmt='%H:%M')
+logging.basicConfig(
+    format=f"%(asctime)s | [{Fore.CYAN}%(levelname)s{Style.RESET}] %(message)s", level=logging.WARNING, datefmt='%H:%M')
 logger = logging.getLogger(__name__)
 
 
@@ -34,34 +35,35 @@ bot = commands.Bot(
 )
 bot.remove_command('help')
 
+
 class Langs:
     @staticmethod
     def all() -> list:
         """
         Get all langpacks
-        
+
         Returns:
             List - list all langpacks in directory.
         """
         return os.listdir('./langs/')
-    
+
     @staticmethod
     def getcurrent() -> dict:
         """
         Get current langpack
-        
+
         Returns:
             Dict - langpack JSON data
         """
         with open(config.get('language')) as f:
             langpack = json.load(f)
         return langpack
-   
+
     @staticmethod
     def get(file: str) -> dict:
         """
         Get langpack
-        
+
         Parameters:
             file (String) - file path
         Returns:
@@ -69,8 +71,9 @@ class Langs:
         """
         with open(file) as f:
             langpack = json.load(f)
-           
+
         return langpack
+
 
 # MOTD
 motd = """
@@ -81,8 +84,9 @@ motd = """
    \/_____/   \/_/\/_/   \/_____/   \/_____/   \/_____/
 """
 
+
 async def answer(
-    ctx, 
+    ctx,
     message: str,
     photo: bool = False,
     document: bool = False,
@@ -90,11 +94,11 @@ async def answer(
 ) -> str:
     """
     Answer text
-    
+
     Parameters:
         ctx (Content),
         message (String)
-        
+
     Returns:
         String - message text
     """
@@ -108,19 +112,20 @@ async def answer(
             responses.append(await ctx.message.edit(message))
         except:
             responses.append(await ctx.reply(message))
-        
+
     await asyncio.sleep(config.get('deletetimer'))
-    
+
     for response in responses:
         await response.delete()
     return responses
 
+
 def get_ram() -> float:
     """
     ! from teagram
-    
+
     Get your ram usage
-    
+
     Returns:
         Float - ram usage
     """
@@ -134,10 +139,11 @@ def get_ram() -> float:
     except:
         return 0
 
+
 def get_cpu() -> float:
     """
     ! from teagram
-    
+
     Get CPU usage as a percentage
 
     Returns:
@@ -157,10 +163,11 @@ def get_cpu() -> float:
     except:
         return 0
 
+
 def get_platform() -> str:
     """
     ! from teagram
-    
+
     Get the platform information
 
     Returns:

@@ -1,9 +1,9 @@
-#  ______     __  __     __  __     ______     ______    
-# /\  ___\   /\ \/ /    /\ \_\ \   /\  ___\   /\  == \   
-# \ \___  \  \ \  _--.  \ \____ \  \ \___  \  \ \  __<   
+#  ______     __  __     __  __     ______     ______
+# /\  ___\   /\ \/ /    /\ \_\ \   /\  ___\   /\  == \
+# \ \___  \  \ \  _--.  \ \____ \  \ \___  \  \ \  __<
 #  \/\_____\  \ \_\ \_\  \/\_____\  \/\_____\  \ \_____\
 #   \/_____/   \/_/\/_/   \/_____/   \/_____/   \/_____/
-#   
+#
 #                    AGPL-3.0 license
 
 import aiohttp
@@ -23,7 +23,8 @@ class Loader(skySB.Cog):
 
     @skySB.command(
         aliases=["lm", "install", "le"],
-        description=utils.Langs.getcurrent()['loader']['loadExt']['description']
+        description=utils.Langs.getcurrent(
+        )['loader']['loadExt']['description']
     )
     async def loadExt(self, ctx, *, url: str = None):
         await utils.answer(ctx, self.langpack['loadExt']['wait'].format(url))
@@ -62,7 +63,8 @@ class Loader(skySB.Cog):
 
     @skySB.command(
         aliases=["reload", "rl", "reloadcogs"],
-        description=utils.Langs.getcurrent()['loader']['reloadExt']['description']
+        description=utils.Langs.getcurrent(
+        )['loader']['reloadExt']['description']
     )
     async def reloadExt(self, ctx):
         msg = ''
@@ -72,10 +74,11 @@ class Loader(skySB.Cog):
                 extension = file[:-3]
                 try:
                     await self.bot.reload_extension(f"cogs.{extension}")
-                    msg += self.langpack['reloadExt']['format'].format(extension)
+                    msg += self.langpack['reloadExt']['format'].format(
+                        extension)
                 except:
                     pass
-                    
+
         await utils.answer(ctx, msg)
 
 
