@@ -64,6 +64,13 @@
             "libwait": "🕒 Loading packages...",
             "done": "✅ Cog `{}` installed!"
         },
+        "unloadExt": {
+            "description": "🗑 Delete cog by name.",
+            "wait": "🕒 Deleting `{}`...",
+            "errorsystem": "❌ You can't delete a system cog!",
+            "notfound": "❓ This cog does not exist!",
+             "done": "✅ Cog `{}` removed!"
+        },
         "reloadExt": {
             "description": "🔄 Reloads all cogs.",
             "title": "👇 Reloaded.\n",
