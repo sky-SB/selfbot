@@ -6,63 +6,70 @@
 #   
 #                    AGPL-3.0 license
 
-import aiohttp
+import requests
 import os
 import re
 import subprocess
 import sys
 
 from discord.ext import commands as skySB
-import utils
+from utils import *
 
 
 class Loader(skySB.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.langpack = utils.Langs.getcurrent()['loader']
+        self.langpack = langs.getcurrent()['loader']
 
+    @skySB.command(
+        aliases=["unlm", "uninstall", "unle"],
+        description=langs.getcurrent()['loader']['unloadExt']['description']
+    )
+    async def unloadExt(self, ctx, *, name: str):
+        await answer(ctx, self.langpack['unloadExt']['wait'].format(ext_name), delete=False)
+        
+        if os.path.exists(f"./cogs/{name}.py"):
+            await answer(ctx, self.langpack['unloadExt']['errorsystem'])
+            return
+        
+        if not os.path.exists(f"./modules/custom/{name}.py"):
+            await answer(ctx, self.langpack['unloadExt']['notfound'])
+            return
+        
+        await bot.unload_extension(f"cogs.custom.{name}")
+        os.remove("./cogs/custom/{name}.py")
+        
+        await answer(ctx, self.langpack['unloadExt']['done'].format(name))
+    
     @skySB.command(
         aliases=["lm", "install", "le"],
-        description=utils.Langs.getcurrent()['loader']['loadExt']['description']
+        description=langs.getcurrent()['loader']['loadExt']['description']
     )
-    async def loadExt(self, ctx, *, url: str = None):
-        await utils.answer(ctx, self.langpack['loadExt']['wait'].format(url))
-        async with aiohttp.ClientSession() as session:
-            async with session.get(url) as resp:
-                text = await resp.text()
-
-        name_search = re.search(r'# name: (\w+)', text)
-        if name_search:
-            name = name_search.group(1)
-        else:
-            return await utils.answer(ctx, utils.Langs.getcurrent()['error'].format('необходимо указать name в коге!'))
-
-        requirements_search = re.search(r'# requirements: (\w+)', text)
-        if requirements_search:
-            requirements = requirements_search.group(1)
-            await utils.answer(ctx, self.langpack['loadExt']['libwait'])
-            try:
-                subprocess.run(
-                    [
-                        sys.executable,
-                        "-m",
-                        "pip",
-                        "install",
-                        "--user",
-                        *requirements
-                    ]
-                )
-            except subprocess.CalledProcessError as error:
-                return await utils.answer(ctx, utils.Langs.getcurrent()['error'].format(error))
-
-        with open(f"cogs/{name}.py", "a") as f:
-            f.write(text)
-        await self.bot.load_extension(f"cogs.{name}")
-        await utils.answer(ctx, self.langpack['loadExt']['done'])
-
+    async def loadExt(self, ctx, *, url: str):
+        ext_name = os.path.basename(url).split(".")[0]
+        await answer(ctx, self.langpack['loadExt']['wait'].format(ext_name), delete=False)
+        if not validators.Link(url):
+            await answer(ctx, self.langpack['loadExt']['errorlink'])
+            return
+        
+        resp = requests.get(url)
+        if not resp.ok:
+            await answer(ctx, self.langpack['loadExt']['errorresp'])
+            return
+        
+        if os.path.exists(f"./cogs/custom/{ext_name}.py"):
+            await answer(ctx, self.langpack['loadExt']['errorexists'])
+            return
+        
+        with open(f"./cogs/custom/{ext_name}.py", "wb") as f:
+            f.write(resp.content)
+            
+        await bot.load_extension(f"cogs.custom.{ext_name}")
+        await answer(ctx, self.langpack['loadExt']['done'].format(ext_name))
+        
     @skySB.command(
         aliases=["reload", "rl", "reloadcogs"],
-        description=utils.Langs.getcurrent()['loader']['reloadExt']['description']
+        description=langs.getcurrent()['loader']['reloadExt']['description']
     )
     async def reloadExt(self, ctx):
         msg = ''
@@ -76,7 +83,7 @@ class Loader(skySB.Cog):
                 except:
                     pass
                     
-        await utils.answer(ctx, msg)
+        await answer(ctx, msg)
 
 
 async def setup(bot):
