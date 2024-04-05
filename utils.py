@@ -130,7 +130,7 @@ async def answer(
     """
     responses = []
     if len(message) > 2000:
-        chunks = [message[i : i + 2000] for i in range(0, len(message), 2000)]
+        chunks = [message[i: i + 2000] for i in range(0, len(message), 2000)]
         for chunk in chunks:
             responses.append(await ctx.reply(chunk))
     else:
